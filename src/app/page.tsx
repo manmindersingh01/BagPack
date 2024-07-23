@@ -29,7 +29,7 @@ export default function Home() {
 
         </div>
         <div>
-          <h1>footer</h1>
+
         </div>
       </main>
     </>
