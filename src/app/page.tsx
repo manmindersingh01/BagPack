@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Darkmode } from "@/components/darkmode";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Questions } from "@/components/Questions";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -10,7 +12,7 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row w-full">
           <div className="p-10 flex-col dark:bg-black bg-slate-100 space-y-5 ">
             <h1 className="text-5xl font-bold">
-              Welcome to bacgPack
+              Welcome to bagPack
               <br />
               <br />
               Storing everything for you and your business needs here
@@ -22,14 +24,18 @@ export default function Home() {
               className="flex cursor-pointer bg-blue-600 p-5 w-fit"
               href={'/dashboard'}
             >
-              try it for free!
+              lets try it!
               <ArrowRight className="ml-5" />
             </Link>
           </div>
 
         </div>
+        <div className=" container mt-4">
+          <h2 className="text-xl font-bold">Qna</h2>
+          <Questions />
+        </div>
         <div>
-
+          <Footer />
         </div>
       </main>
     </>

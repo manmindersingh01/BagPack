@@ -16,7 +16,7 @@ function Header() {
           height={42}
         ></Image>
 
-        <h1 className=' font-bold'>BagDrop</h1>
+        <h1 className=' font-bold'>BagPack</h1>
       </div>
       <div className='flex justify-center items-center space-x-2 px-5'>
         <Darkmode />
