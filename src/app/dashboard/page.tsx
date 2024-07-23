@@ -19,9 +19,10 @@ const page = async () => {
   try {
     const docRes = await getDocs(collection(db, "users", userId, "files"));
 
-    console.log('Documents:', docRes.docs); // Log documents fetched from Firestore
+    // console.log('Documents:', docRes.docs); 
 
     const skeletonFiles: FileType[] = docRes.docs.map((doc) => ({
+      id: doc.id,
       userId: doc.data().userId,
       fileName: doc.data().fileName,
       fullName: doc.data().fullName,

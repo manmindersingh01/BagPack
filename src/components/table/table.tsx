@@ -1,5 +1,4 @@
 "use client";
-
 import {
   ColumnDef,
   flexRender,
@@ -18,13 +17,16 @@ import {
 import { FileType } from "../../../typing";
 import { Button } from "../ui/button";
 import { PenLineIcon, TrashIcon } from "lucide-react";
+import { useAppStore } from "../../../store/store";
+import { DeleteModel } from "../DeleteModel";
+import { RenameModel } from "../RenameModel";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends FileType, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -34,16 +36,32 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const openEditModel = () => {
-    // Implement your logic to open the edit model
+  const [setIsDeleteModelOpen, setFileId, setFileName, setIsRenameModelOpen] = useAppStore((state) => [
+    state.setIsDeleteModelOpen,
+    state.setFileId,
+    state.setFileName,
+    state.setIsRenameModelOpen,
+  ]);
 
-  }
+  const openEditModel = (fileId: string, fileName: string) => {
+    setFileId(fileId);
+    setFileName(fileName);
+    setIsRenameModelOpen(true);
+  };
+
+  const openDeleteModel = (fileId: string) => {
+    setFileId(fileId);
+    setIsDeleteModelOpen(true);
+  };
+
   return (
     <div className="rounded-md border">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
+              <DeleteModel />
+              <RenameModel />
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
@@ -79,7 +97,7 @@ export function DataTable<TData, TValue>({
                       </div>
                     ) : cell.column.id === "fileName" ? (
                       <p
-                        onClick={openEditModel}
+                        onClick={() => openEditModel(row.original.id, cell.getValue() as string)}
                         className=" flex items-center text-blue-600 underline hover:cursor-pointer">
                         {cell.getValue() as string}{""}
                         <PenLineIcon size={15} className="ml-2" />
@@ -92,9 +110,7 @@ export function DataTable<TData, TValue>({
                 <TableCell>
                   <Button
                     variant={"outline"}
-                    onClick={() => {
-                      console.log("Delete button clicked for", (row.original as FileType).fileName);
-                    }}
+                    onClick={() => openDeleteModel(row.original.id)}
                   >
                     <TrashIcon />
                   </Button>

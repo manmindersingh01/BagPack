@@ -8,7 +8,7 @@ import { useUser } from '@clerk/nextjs';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection, orderBy, query } from 'firebase/firestore';
 import { db } from '../../../fitebase';
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
 
 function TableWrapper({ skeletonFiles }: { skeletonFiles: FileType[] }) {
   const { user } = useUser();
@@ -23,18 +23,18 @@ function TableWrapper({ skeletonFiles }: { skeletonFiles: FileType[] }) {
     )
   );
 
-
   useEffect(() => {
     if (docs) {
       const fetchedFiles: FileType[] = docs.docs.map((doc) => ({
+        id: doc.id, // Add this line to include the document ID
         userId: doc.data().userId,
         fileName: doc.data().fileName,
         fullName: doc.data().fullName,
         profileImg: doc.data().profileImg,
         type: doc.data().type,
         size: doc.data().size,
-        timestamp: doc.data().timestamp ? doc.data().timestamp.toDate().toISOString() : null,
-        createdAt: doc.data().createdAt ? doc.data().createdAt.toDate().toISOString() : null,
+        timestamp: doc.data().timestamp ? doc.data().timestamp.toDate().toISOString() : '',
+        createdAt: doc.data().createdAt ? doc.data().createdAt.toDate().toISOString() : '',
         lastModified: doc.data().lastModified,
         downloadUrl: doc.data().downloadUrl,
       }));
@@ -45,25 +45,27 @@ function TableWrapper({ skeletonFiles }: { skeletonFiles: FileType[] }) {
   }, [docs]);
 
   if (docs?.docs.length == undefined) {
-    return <div className=' flex flex-col'>
-      <Button variant={'outline'} className='ml-auto text-sm w-36 h-10 mb-2'>
-        <Skeleton />
-      </Button>
-      <div className=' border rounded-lg'>
-        <div className=''>
-          {skeletonFiles.map((file) => {
-            return <div key={file.userId}
-              className='flex items-center space-x-4 p-5 w-full'
-            >
-              <Skeleton className='w-12 h-12' />
-              <Skeleton className='w-full h-12' />
-            </div>
-          })}
+    return (
+      <div className=' flex flex-col'>
+        <Button variant={'outline'} className='ml-auto text-sm w-36 h-10 mb-2'>
+          <Skeleton />
+        </Button>
+        <div className=' border rounded-lg'>
+          <div className=''>
+            {skeletonFiles.map((file) => {
+              return (
+                <div key={file.userId} className='flex items-center space-x-4 p-5 w-full'>
+                  <Skeleton className='w-12 h-12' />
+                  <Skeleton className='w-full h-12' />
+                </div>
+              );
+            })}
+          </div>
         </div>
-
       </div>
-    </div>
+    );
   }
+
   const handleSortChange = () => {
     setSort(sort === "desc" ? "asc" : "desc");
   };
