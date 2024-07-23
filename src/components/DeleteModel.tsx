@@ -59,7 +59,7 @@ export function DeleteModel() {
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline">Delete File</Button>
+        {/* <Button variant="outline">Delete File</Button> */}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
