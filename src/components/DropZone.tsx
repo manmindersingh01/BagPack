@@ -5,14 +5,15 @@ import { useUser } from '@clerk/nextjs';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../fitebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import taost, { toast } from "react-hot-toast"
+import toast, { toast } from "react-hot-toast";
+
 const DropZone = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
   const maxSize = 1024 * 1024 * 20; // Maximum file size: 20MB
 
   const uploadPost = async (file: File) => {
-    const toastId = toast.loading("Uploading....")
+    const toastId = toast.loading("Uploading....");
     if (loading) return;
     if (!user) return;
 
@@ -46,8 +47,7 @@ const DropZone = () => {
     } finally {
       toast.success("File uploaded successfully", {
         id: toastId,
-
-      })
+      });
       setLoading(false);
     }
   };
@@ -77,7 +77,7 @@ const DropZone = () => {
             className={`p-4 border rounded-md ${isDragActive ? 'bg-blue-600 animate-pulse' : 'dark:bg-slate-800 bg-slate-200'} text-center p-10 h-40 m-5 flex items-center justify-center`}
           >
             <input {...getInputProps()} />
-            {!isDragActive && <p>Drag 'n' drop some files here, or click to select files</p>}
+            {!isDragActive && <p>Drag &apos;n&apos; drop some files here, or click to select files</p>}
             {isDragActive && !isDragReject && <p>Drop to upload this file</p>}
             {isDragReject && <p>File type not supported</p>}
           </div>
