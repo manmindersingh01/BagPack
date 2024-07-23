@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import toast, { Toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Input } from "./ui/input";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useAppStore } from "../../store/store";

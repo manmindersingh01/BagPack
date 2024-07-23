@@ -5,7 +5,7 @@ import { useUser } from '@clerk/nextjs';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../fitebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import toast, { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const DropZone = () => {
   const [loading, setLoading] = useState(false);

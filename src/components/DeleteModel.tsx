@@ -14,7 +14,7 @@ import { useUser } from "@clerk/nextjs";
 import { deleteObject, ref } from "firebase/storage";
 import { db, storage } from "../../fitebase";
 import { deleteDoc, doc } from "firebase/firestore";
-import toast, { Toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 export function DeleteModel() {
   const { user } = useUser();
   const [isDeleteModelOpen, setIsDeleteModelOpen, fileId, setFileId] = useAppStore((state) => [
